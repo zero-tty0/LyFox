@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="msapplication-TileColor" content="#222222">
+	<meta name="theme-color" content="#222222">
+	<title>LyFox panel</title>
+	<link
+		href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.3.0/mdb.min.css"
+		rel="stylesheet"
+	/>
+	<link
+		href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+		rel="stylesheet"
+	/>
+
+	<link href="https://fonts.googleapis.com/css2?family=RocknRoll+One&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="/static/style.css">
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.3.0/mdb.min.js"></script>
+	<script type="text/javascript" src="/static/sha1.js"></script>
+	
+</head>
+<body>
+	<nav class="navbar navbar-dark bg-dark">
+		<div class="container-fluid">
+			<div class="container">
+					<a style="font-family: 'RocknRoll One', sans-serif;" class="d-inline float-right navbar-brand"><span style="font-size: 20px;" class="badge bg-warning">LyFox</span></a>
+					<div style='float:right;'>
+						<a href="https://github.com/zero-tty0"><i class="fab fa-github text-light fa-2x"></i></a>
+						<a href="https://t.me/zero_tty0"><i style='margin-right:5px;' class="fab fa-telegram text-info fa-2x"></i></a>
+					</div>
+			</div>
+		</div>
+	</nav>
+	<div style="margin-top:10px">
+		{% block content %}
+		{% endblock %}
+	</div>
+</body>
+</html>

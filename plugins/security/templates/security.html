@@ -1,0 +1,69 @@
+{% extends "includes/index.html" %}
+
+{% block content %}
+
+<script type="text/javascript" charset="utf-8">
+  function change()
+  {
+    var XHR = ("onload" in new XMLHttpRequest()) ? XMLHttpRequest : XDomainRequest;
+  	var xhr = new XHR();
+  	var user = document.getElementById('username').value
+  	var new_user = document.getElementById('new_username').value
+  	var password = document.getElementById('password').value
+  	var new_pass = document.getElementById('new_password').value
+  	xhr.open('GET', "http://{{ net_ip }}:1700/plugin/security?token="+hex_sha1(user)+hex_sha1(password)+"&newuser="+hex_sha1(new_user)+"&newpassword="+hex_sha1(new_pass), true);
+  	xhr.onload = function() {
+  	  alert( this.responseText );
+  		location.reload();
+  		return false;
+  	}
+  	xhr.onerror = function() {
+  		alert( 'Error ' + this.status );
+  	}
+  	xhr.send();
+  }
+</script>
+
+<div class="container">
+  <div class="row">
+    <div style='box-shadow: 0 0 10px rgba(0,0,0,0.2);' class="card col-md-12">
+      <div class="text-center card-body">
+        <h4>Change username and password</h4>
+        <div class="row">
+          <div class="col-md-6">
+            <div style='margin: 20px 0 20px; box-shadow: 0 0 10px rgba(0,0,0,0.2);' class="card">
+              <div class="card-body">
+        				<div style="margin-top: 10px;" class="form-outline mb-4">
+        					<input type="text" id="username" class="form-control" />
+        					<label class="form-label" for="username">Username</label>
+        				</div>
+        				<div class="form-outline mb-4">
+        					<input type="password" id="password" class="form-control" />
+        					<label class="form-label" for="password">Password</label>
+        				</div>
+        		  </div>
+        		</div>
+        	</div>
+      		<div class="col-md-6">
+    				<div style='margin: 20px 0 20px; box-shadow: 0 0 10px rgba(0,0,0,0.2);' class="card">
+              <div class="card-body">
+        				<div style="margin-top: 10px;" class="form-outline mb-4">
+        					<input type="text" id="new_username" class="form-control" />
+        					<label class="form-label" for="new_username">New username</label>
+        				</div>
+        				<div class="form-outline mb-4">
+        					<input type="password" id="new_password" class="form-control" />
+        					<label class="form-label" for="new_password">New password</label>
+        				</div>
+        		  </div>
+        		</div>
+      		</div>
+  			</div>
+	     {{ status | safe }}
+				<a onclick="change();" type="submit" class="btn btn-warning btn-block">Change</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,5 @@
+{
+	"plugname": "FTP server",
+	"plugbanner": "Configuring and creating an FTP server",
+	"plugloadpath": "ftp_server"
+}

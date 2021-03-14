@@ -1,0 +1,40 @@
+{% extends "includes/index.html" %}
+
+{% block content %}
+
+<script>
+	function login(){
+		var XHR = ("onload" in new XMLHttpRequest()) ? XMLHttpRequest : XDomainRequest;
+		var xhr = new XHR();
+		var username = document.getElementById("username").value
+		var password = document.getElementById("password").value
+		document.cookie="token="+hex_sha1(username)+hex_sha1(password);
+		location.reload();
+		return false;
+	}
+</script>
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-4"></div>
+			<div class="col-md-4">
+				<div style="box-shadow: 0 0 10px rgba(0,0,0,0.2);" class="card">
+					<div class="text-center card-body">
+						<div class="form-outline mb-4">
+							<input type="text" id="username" class="form-control" />
+							<label class="form-label" for="username">Username</label>
+						</div>
+						<div class="form-outline mb-4">
+							<input type="password" id="password" class="form-control" />
+							<label class="form-label" for="password">Password</label>
+						</div>
+						{{ status | safe }}
+						<a onclick="login();" type="submit" class="btn btn-warning btn-block">Sign in</a>
+					</div>
+				</div>
+			</div>
+		<div class="col-md-4"></div>
+	</div>
+</div>
+
+{% endblock %}

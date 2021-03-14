@@ -1,0 +1,70 @@
+{% extends "includes/index.html" %}
+
+{% block content %}
+<div class="container">
+	<div class="row">
+		<div class="col-md-3">
+			<div style="height: 100px; box-shadow: 0 0 10px rgba(0,0,0,0.2);" class="card text-center ">
+			  	<div class="card-body">
+					<h4 style="font-family: 'RocknRoll One', sans-serif;" class="text-center text-light"><span style="padding: 10px;" class='badge bg-warning'>Load CPU</span></h4>
+					<div class="progress" style="height: 20px">
+			  			<div
+			    			class="progress-bar bg-dark"
+			    			role="progressbar"
+			    			style="width: {{cpu_load}}%"
+			    			aria-valuenow="25"
+			    			aria-valuemin="0"
+			    			aria-valuemax="100"
+			  			>{{cpu_load}}%</div>
+					</div>
+				</div>
+			</div>
+		
+			<div style="height: 100px; box-shadow: 0 0 10px rgba(0,0,0,0.2);" class="card text-center ">
+			  	<div class="card-body">
+					<h4 style="font-family: 'RocknRoll One', sans-serif;" class="text-center text-light"><span style="padding: 10px;" class='badge bg-warning'>Space disk</span></h4>
+					<div class="progress" style="height: 20px">
+		
+			  			<div
+			    			class="progress-bar bg-dark"
+			    			role="progressbar"
+			    			style="width: {{100-memory[0]}}%"
+			    			aria-valuenow="25"
+			    			aria-valuemin="0"
+			    			aria-valuemax="100"
+			  			>{{memory[1]}}%</div>
+			  			<p style="width: 100%;" class="d-flex justify-content-center">{{memory[0]}}%</p>
+					</div>
+				</div>
+			</div>
+		
+			<div style="height: 100px; box-shadow: 0 0 10px rgba(0,0,0,0.2);" class="card text-center ">
+			  	<div class="card-body">
+					<h4 style="font-family: 'RocknRoll One', sans-serif;" class="text-center text-light"><span style="padding: 10px;" class='badge bg-warning'>Load RAM</span></h4>
+					<div class="progress" style="height: 20px">
+			  			<div
+			    			class="progress-bar bg-dark"
+			    			role="progressbar"
+			    			style="width: {{ram_load}}%"
+			    			aria-valuenow="25"
+			    			aria-valuemin="0"
+			    			aria-valuemax="100"
+			  			>{{ram_load}}%</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="col-9">
+			<div class="grid">
+				<div class="container">
+					<div class="row">
+						{{modules | safe}}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

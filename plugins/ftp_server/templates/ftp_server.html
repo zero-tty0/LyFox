@@ -1,0 +1,129 @@
+{% extends "includes/index.html" %}
+
+{% block content %}
+
+<script>
+    function change_s(def_p,def_a){
+		var XHR = ("onload" in new XMLHttpRequest()) ? XMLHttpRequest : XDomainRequest;
+		var xhr = new XHR();
+		if(def_a=="YES" || def_a=="NO")
+		{
+			var new_a=def_a=="YES"?"NO":"YES";
+			xhr.open('GET', "http://{{ net_ip }}:1700/plugin/ftp_server?def_p="+def_p+"&def_a="+def_a+"&new_a="+new_a, true);
+		} else 
+		{
+			var new_a = document.getElementById(def_p).value
+			xhr.open('GET', "http://{{ net_ip }}:1700/plugin/ftp_server?def_p="+def_p+"&def_a="+def_a+"&new_a="+new_a, true);
+		}
+		xhr.onload = function() {
+			location.reload();
+			return false;
+		}
+		xhr.onerror = function() {
+			alert( 'Error ' + this.status );
+		}
+		xhr.send();
+		
+	}
+	
+	function backup(){
+		var XHR = ("onload" in new XMLHttpRequest()) ? XMLHttpRequest : XDomainRequest;
+		var xhr = new XHR();
+		xhr.open('GET', "http://{{ net_ip }}:1700/plugin/ftp_server?backup", true);
+		xhr.onload = function() {
+			alert( this.responseText );
+		}
+		xhr.onerror = function() {
+			alert( 'Error ' + this.status );
+		}
+		xhr.send();
+		
+	}
+	
+	function restore(){
+		var res=confirm("Are you sure you want to restore the configuration?");
+		if(res){
+			var XHR = ("onload" in new XMLHttpRequest()) ? XMLHttpRequest : XDomainRequest;
+			var xhr = new XHR();
+			xhr.open('GET', "http://{{ net_ip }}:1700/plugin/ftp_server?restore", true);
+			xhr.onload = function() {
+				alert( this.responseText );
+				location.reload();
+				return false;
+			}
+			xhr.onerror = function() {
+				alert( 'Error ' + this.status );
+			}
+			xhr.send();
+		} 
+	}
+	
+	function service(mode){
+		var XHR = ("onload" in new XMLHttpRequest()) ? XMLHttpRequest : XDomainRequest;
+		var xhr = new XHR();
+		xhr.open('GET', "http://{{ net_ip }}:1700/plugin/ftp_server?service="+mode, true);
+		xhr.onload = function() {
+			alert( this.responseText );
+		}
+		xhr.onerror = function() {
+			alert( 'Error ' + this.status );
+		}
+		xhr.send();
+		
+	}
+</script>
+
+<div class="container">
+	<div class="row">
+
+		<div class="col-md-4">
+			<div style="box-shadow: 0 0 10px rgba(0,0,0,0.2);" class="col-md-12 card text-center">
+				<div class="card-body">
+				    <h5 class="card-title">Backups</h5>
+				   	<p class="card-text">
+				    		Save files to zip archive
+				    	</p>
+				    	<a onclick="backup();" type="button" class="btn btn-warning">backup</a>
+				</div>
+			</div>
+		</div>
+			
+		<div class="col-md-4">
+			<div style="box-shadow: 0 0 10px rgba(0,0,0,0.2);" class="col-md-12 card text-center">
+				<div class="card-body">
+				    <h5 class="card-title">Configuration</h5>
+				   	<p class="card-text">
+				    		Restore default configuration 
+				    	</p>
+				    	<a onclick="restore();" type="button" class="btn btn-danger">restore</a>
+				</div>
+			</div>
+		</div>
+			
+		<div class="col-md-4">
+			<div style="box-shadow: 0 0 10px rgba(0,0,0,0.2);" class="col-md-12 card text-center">
+				<div class="card-body">
+				    <h5 class="card-title">Service management</h5>
+				    	<a onclick='service("start");' type="button" class="btn btn-warning">start</a>
+						<a onclick='service("restart");' type="button" class="btn btn-dark">restart</a>
+						<a onclick='service("stop");' type="button" class="btn btn-danger">stop</a>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+<div class="container">
+	<div class="row">
+		{{ content_tf | safe }}
+	</div>
+</div>
+
+<div class="container">
+	<div class="row">
+		{{ content_ts | safe }}
+	</div>
+</div>
+
+{% endblock %}
